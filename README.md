@@ -1,6 +1,6 @@
 # My books
 
-##To get it up and running just follow these 3 simple steps:
+To get up and running just follow these 3 simple steps:
 
 1) Download dependencies:
 ```sh

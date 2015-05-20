@@ -7,7 +7,7 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "components",
+    "components"
   ],
   "dependencies": {
     "font-roboto": "Polymer/font-roboto#^0.5.0",
