@@ -1,0 +1,51 @@
+<link rel="import" href="../components/polymer/polymer.html">
+
+<polymer-element name="book-card">
+	<template>
+		<style>
+			:host { display: block; position: relative; background-color: white; width:100%; margin-bottom:30px; box-sizing:border-box; border-radius:3px; overflow:hidden; box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.2); max-height:270px; }
+			::content h2 { font-size:36px; margin: 0; font-weight: 300; }
+			::content img { max-width: 170px; max-height:270px; width:100%; }
+			::content p { color:#757575; font-size:25px; margin:0 0 20px; }
+		
+			.card-header { padding:10% 5%; font-weight: 300; width:100%; box-sizing:border-box; }
+			.buttons { border-top:1px solid #dcdcdc; height: 30px; position: absolute; bottom: 0; width: 100%; box-sizing: border-box; display:table; }
+			.buttons a {margin-left:0; height:100%; display:inline-block; color:#000; width:49%; text-decoration:none; display:table-cell; vertical-align:middle; padding: 20px; }
+			.buttons a.yellow { color:#ffac30; }
+			.buttons a:hover { background: #eee; }
+
+			@media (max-width:1140px) {
+				::content img { width: 30%; height:30%; }
+				::content h2 { font-size:28px; }
+				::content p { font-size:16px; }
+				.buttons { height:30px; }
+				.buttons a { font-size:13px; padding-right:3%; }
+			}
+		</style>
+
+			<div layout flex horizontal>
+
+				<content select="img"></content>
+
+				<div class="wrap" layout flex vertical relative>
+					<div class="card-header">
+						<content select="h2"></content>
+						<content select="p"></content>
+					</div>
+
+					<div class="buttons">
+						<a href="#">FREE SAMPLE</a>
+						<a href="#" class="yellow">REVIEW</a>
+					</div>
+
+				</div>
+			</div>
+
+		<content></content>   
+
+	</template>
+
+	<script>
+		Polymer({});
+	</script>
+</polymer-element>

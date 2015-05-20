@@ -1,0 +1,94 @@
+<!-- an element that uses the dialog element and core-overlay -->
+<polymer-element name="welcome-card">
+
+	<template>
+
+		<x-dialog id="dialog" class="dialog">
+			<!-- place all overlay styles inside the overlay target -->
+			<style no-shim>
+				:host, .dialog { box-sizing: border-box; -moz-box-sizing: border-box; }
+				.dialog { overflow: hidden; background: white; padding: 30px; outline: 1px solid rgba(0, 0, 0, 0.2); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
+				#dialog { width: 500px; }
+				#dialog h2 { font-weight:300; }
+				#dialog input { font-size:12px; height:28px; }
+				.colored { background: #4285f4; color: #fff; }
+			</style>
+
+			<h2>What book have you read?</h2>
+
+			<input placeholder="Title" autofocus id="title"/>
+			<input placeholder="Author" id="author"/>
+			<paper-button raised core-overlay-toggle on-tap="{{addBook}}" class="colored">Add book</paper-button>
+
+			<core-overlay layered id="confirmation" class="dialog" backdrop transition="core-transition-top">
+				<!-- place all overlay styles inside the overlay target -->
+				<style no-shim>
+					.dialog { box-sizing: border-box; -moz-box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; font-size: 13px; -webkit-user-select: none; -moz-user-select: none; overflow: hidden; background: white; padding: 30px 42px; outline: 1px solid rgba(0, 0, 0, 0.2); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
+					#confirmation { box-sizing: border-box; text-align: center; width: 300px; }
+				</style>
+				<p>Great, thanks for letting us know!</p>
+			</core-overlay>
+
+		</x-dialog>
+
+		<style>
+			:host { display: block; position: relative; background-color: white;  margin-bottom: 20px; border-radius:3px; overflow:hidden; box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.2); }
+			::content h2 { margin:0 0 20px; font-weight: 300; color: #ec1661; font-size:36px; }
+			::content p { margin:0 0 5px; }
+			.card-header { border-bottom:1px solid #dcdcdc; padding:5%; font-weight: 300; }
+			paper-button {margin-left:0; }
+			paper-button:hover { background: #eee; }
+			paper-button.yellow { color:#ffac30; }
+
+			@media (max-width:1140px) {
+				::content h2 { font-size:28px; }
+				::content p { font-size:16px; }
+			}
+		</style>
+
+		<div layout vertical>
+			<div class="card-header">
+				<content select="h2"></content>
+				<content select="p"></content>
+			</div>
+
+			<div horizontal layout>
+				<paper-button on-tap="{{removeCard}}">No</paper-button>
+				<paper-button class="yellow" on-tap="{{openDialog}}">Yes</paper-button>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		Polymer('welcome-card', {		
+			openDialog: function() {
+				this.$.dialog.toggle();
+			},
+
+			addBook: function(event, detail, sender) {
+				var inputs = sender.templateInstance.model.$;
+
+				// If the user has input the required info
+				if (inputs.title.value && inputs.author.value){
+					console.log('Adding '+ inputs.title.value + ' book');
+					
+					// Fire off a custom event with necessary data for our list element to catch
+					this.fire('add-book', {title: inputs.title.value, author: inputs.author.value});
+
+					// Hide the dialog 
+					this.$.confirmation.toggle();
+
+					// and empty the inputs
+					inputs.author.value = '';
+					inputs.title.value = '';
+				}
+			},
+
+			removeCard: function(event, detail, sender){
+				// I'm sure there's a 'Polymer way' of doing this but this will have to suffice...
+				sender.templateInstance.model.remove();
+			}
+		});
+	</script>
+
+</polymer-element>

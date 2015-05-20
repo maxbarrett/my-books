@@ -1,0 +1,74 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+
+<!-- 
+`<book-service>` provides an API for a fake service.
+@element book-service
+@attribute books 
+@type Array
+@default []
+-->
+<polymer-element name="book-service" attributes="books">
+	<template>
+		<style>
+			:host { display: none; }
+		</style>
+		
+		<core-ajax id="ajax" auto url="../api/books.json" on-core-response="{{booksLoaded}}" handleAs="json"></core-ajax>
+	</template>
+
+	<script>
+		Polymer('book-service', {
+			created: function() {
+				this.books = [];
+			},
+
+			booksLoaded: function() {
+				// Make a copy of the loaded data
+				this.books = this.$.ajax.response.slice(0);
+			},
+
+			/** 
+			* Update the service with a new book.
+			* If this was a real service, this
+			* method would do something useful.
+			*/
+			saveBook: function(bookObj){
+
+				var duplicate = this.checkDuplicate(bookObj);
+
+				// If the book isn't in the DB...
+				if (!duplicate.length){
+					// Add the new book to the beginning of the array
+					this.books.unshift(bookObj);
+					console.log('Saving book: ' + bookObj.title + ", by: " + bookObj.author);
+				} else {
+					// TODO: add notification for the user
+					console.log('Book not saved: ' + duplicate[0].title + ' already in DB!');
+				}
+			},
+
+			checkDuplicate: function(bookObj){
+				// Check we don't already have the book
+				return this.books.filter(function(book) { 
+					return book.title === bookObj.title; 
+				});
+			},
+
+			sortBooks: function() {
+				// Sort the book titles alphabetically
+				this.books.sort(function (a, b) {
+					var titleA = a.title.toLowerCase(), 
+						titleB = b.title.toLowerCase();
+
+					if (titleA < titleB) { return -1; }
+					if (titleA > titleB) { return 1; }
+					return 0;
+				});
+
+				return this.books;
+			}
+
+		});
+	</script>
+</polymer-element>

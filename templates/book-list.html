@@ -1,0 +1,47 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="book-service.html">
+<link rel="import" href="book-card.html">
+
+<polymer-element name="book-list" attributes="show" on-add-book="saveBook">
+	<template>
+		<style>
+			paper-button { background:white; margin:0 0 10px; float:right; }
+			paper-button:hover { background: #eee; }
+			.list { clear:both; }
+		</style>
+
+		<content></content>
+
+		<paper-button class="sort" raised on-tap="{{sort}}">Sort books A-Z</paper-button>
+
+		<book-service id="service" books="{{books}}"></book-service>
+
+		<div class="list">
+			<template repeat="{{book in books}}">
+				<book-card layout justified>
+					<img src="{{book.image}}" width="170" onError="this.src='http://lorempixel.com/170/270/';">
+					<h2>{{book.title}}</h2>
+					<p>By {{book.author}}</p>
+				</book-card>
+			</template>
+		</div>
+	</template>
+
+	<script>
+		Polymer({
+
+			// These methods catch child events and pass back down tree
+			// enabling sibling event delegation.
+
+			saveBook: function(event, detail, sender) {
+				console.log('Saving book...');
+				this.$.service.saveBook(detail);
+			},
+
+			sort: function(){
+				console.log('Sorting books');
+				this.$.service.sortBooks();
+			}
+		});
+	</script>
+</polymer-element>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<title>My Books</title>
+
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<script src="components/webcomponentsjs/webcomponents.js"></script>
+
+	<!-- Polymer elements installed with Bower -->
+	<link rel="import" href="components/font-roboto/roboto.html">
+	<link rel="import" href="components/core-overlay/core-overlay.html">
+	<link rel="import" href="components/core-transition/core-transition-css.html">
+	<link rel="import" href="components/paper-button/paper-button.html">
+	
+	<!-- My custom elements -->
+	<link rel="import" href="templates/book-list.html">
+	<link rel="import" href="templates/x-dialogue.html">
+	<link rel="import" href="templates/welcome-card.html">
+
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body unresolved> <!-- The 'unresolved' attr prevents FOUC -->
+
+		<header>
+			<button id="js-menu" class="menu"><span></span></button>
+			<h1 class="logo">My Books</h1>
+		</header>
+
+		<div id="js-submenu" class="submenu shadow">
+			<ul>
+				<li><a href="#">El Pooch</a></li>
+				<li><a href="#">The Flight</a></li>
+				<li><a href="#">Top 10 Australian Beaches</a></li>
+			</ul>
+		</div>
+
+		<div class="container">
+			<!-- Book list made using Polymer web components -->
+			<book-list show="all">	
+				<welcome-card>
+					<h2>Welcome back!</h2>
+					<p>It's been a while.</p> 
+					<p>Read any good books lately?</p>
+				</welcome-card>
+			</book-list>
+
+			<!-- Article data hard coded here for now.
+			In production data would be JSON from a REST endpoint
+			similar to book-list above -->
+			<div class="articles shadow">
+				<img src="images/beaches.jpg" alt="Top 10 beaches"/>
+				<div class="card-header">
+					<p>Number 10</p>
+					<p>Whitsunday Beach, Whitsunday Island, Whitsunday Islands</p>
+				</div>
+
+				<div class="buttons">
+					<a href="#">FREE SAMPLE</a>
+					<a href="#" class="yellow">REVIEW</a>
+				</div>
+
+			</div>
+		</div>
+
+	<script>
+		// One cheeky little function to toggle the submenu
+		// Encapsulated in an IIFE to prevent any globals
+		(function(){
+			function toggleSubmenu(){
+				var subMenu = document.getElementById('js-submenu');
+				this.classList.toggle('active');
+				subMenu.classList.toggle('visible');
+			}
+			Polymer.addEventListener(document.getElementById('js-menu'), 'tap', toggleSubmenu);
+		})();
+	</script>
+
+</body>
+</html>

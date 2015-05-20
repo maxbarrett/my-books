@@ -1,0 +1,14 @@
+[
+  {
+    "uid": 1,
+    "title" : "El Pooch",
+    "author" : "Alex Nelson",
+    "image" : "images/pooch.jpg"
+  },
+  {
+    "uid": 2,
+    "title" : "The Flight",
+    "author" : "Scott Masterson",
+    "image" : "images/plane.jpg"
+  }
+]

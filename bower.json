@@ -1,0 +1,26 @@
+{
+  "name": "my-books",
+  "version": "0.0.1",
+  "homepage": "",
+  "author": "Max Barrett <maxjbarrett@gmail.com>",
+  "description": "Bigcommerce frontend test",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "components",
+  ],
+  "dependencies": {
+    "font-roboto": "Polymer/font-roboto#^0.5.0",
+    "core-ajax": "Polymer/core-ajax#^0.5.0",
+    "core-overlay": "Polymer/core-overlay#^0.5",
+    "core-transition": "Polymer/core-transition#^0.5",
+    "paper-button": "Polymer/paper-button#^0.5"
+  },
+  "authors": [
+    "Max Barrett <maxjbarrett@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "Polymer"
+  ]
+}
