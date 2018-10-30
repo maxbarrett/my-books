@@ -17,7 +17,7 @@
     "paper-button": "Polymer/paper-button#^0.5"
   },
   "authors": [
-    "Max Barrett <maxjbarrett@gmail.com>"
+    "Max Barrett"
   ],
   "main": "index.html",
   "keywords": [
